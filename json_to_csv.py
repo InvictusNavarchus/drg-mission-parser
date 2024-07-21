@@ -25,7 +25,6 @@ def parse_mission_to_csv(mission_dict):
                 value = ','.join(value)
             column_values[i] = value
         i += 1
-    print(column_values)
     return column_values
 
 def initialize_csv(csv_path):
