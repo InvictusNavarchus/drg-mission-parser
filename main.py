@@ -29,6 +29,3 @@ def main(iso_timestamp, local_json_path, csv_path):
             os.remove(csv_path)
     else:
         print(f'{csv_path} already exists')
-
-iso_timestamp = datetime.now().date().isoformat()
-main(iso_timestamp, f'json/{iso_timestamp}.json', f'csv/{iso_timestamp}.csv')
