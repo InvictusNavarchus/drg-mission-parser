@@ -1,7 +1,3 @@
-import traceback
-import os
-from datetime import datetime
-import requests
 import json
 import csv
 
@@ -42,7 +38,8 @@ def write_to_csv(data, csv_path):
         writer = csv.writer(csv_file)
         writer.writerow(data)
 
-def parse_json_to_csv(json_path, csv_path):
+def parse_json_to_csv(iso_timestamp, json_path, csv_path):
+    initialize_csv(f'{iso_timestamp}.csv')
     with open(json_path, 'r') as json_file:
         json_data = json.load(json_file)
         for timestamp, wrapper in json_data.items():
@@ -55,12 +52,3 @@ def parse_json_to_csv(json_path, csv_path):
                     mission['Biome'] = biome
                     column_values = parse_mission_to_csv(mission)
                     write_to_csv(column_values, csv_path)
-
-current_date_iso = datetime.now().date().isoformat()
-initialize_csv(f'{current_date_iso}.csv')
-
-try:
-    traverse(f'{current_date_iso}.json', f'{current_date_iso}.csv')
-except Exception as e:
-    traceback.print_exc()
-    os.remove(current_date_iso + '.csv')
